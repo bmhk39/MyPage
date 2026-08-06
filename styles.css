@@ -248,166 +248,231 @@ body {
 }
 
 /* ==========================================================================
-   Hardcoded Social Grid
+   Portal Sections (Highly Functional)
    ========================================================================== */
+.portal-section {
+  margin-bottom: 40px;
+}
+
 .section-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
   font-family: var(--font-heading);
-  font-size: 0.9rem;
-  color: var(--text-muted);
+  font-size: 0.95rem;
+  color: var(--neon-cyan);
   text-transform: uppercase;
   letter-spacing: 0.1em;
   margin-bottom: 16px;
-  text-align: left;
+}
+.section-title i {
+  width: 18px; height: 18px;
 }
 
-.social-grid {
+/* 1. Live Player */
+.video-container {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: 16px;
+  overflow: hidden;
+  background: #000;
+  border: 1px solid var(--glass-border);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+  position: relative;
+}
+.video-placeholder {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(45deg, #1a1a2e, #16213e);
+  color: var(--text-muted);
+  gap: 12px;
+}
+.play-icon {
+  width: 48px; height: 48px;
+  color: var(--neon-purple);
+  opacity: 0.8;
+  animation: pulsePlay 2s infinite;
+}
+@keyframes pulsePlay {
+  0% { transform: scale(1); opacity: 0.8; }
+  50% { transform: scale(1.1); opacity: 1; }
+  100% { transform: scale(1); opacity: 0.8; }
+}
+
+/* 2. Interactive Schedule */
+.schedule-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+  background: rgba(0,0,0,0.2);
+  padding: 8px;
+  border-radius: 12px;
+  border: 1px solid var(--glass-border);
+}
+.schedule-day {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 8px 4px;
+  border-radius: 8px;
+  background: rgba(255,255,255,0.02);
+  transition: var(--transition-smooth);
+}
+.schedule-day.active {
+  background: rgba(0, 243, 255, 0.15);
+  border: 1px solid var(--neon-cyan);
+  box-shadow: 0 0 15px rgba(0, 243, 255, 0.2);
+}
+.schedule-day .day-name {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+}
+.schedule-day.active .day-name { color: var(--neon-cyan); font-weight: bold; }
+.schedule-day .event {
+  font-size: 0.8rem;
+  margin-top: 4px;
+  text-align: center;
+  word-break: break-all;
+  line-height: 1.2;
+}
+
+/* 3. Repertoire & Request */
+.search-box {
+  position: relative;
+  margin-bottom: 12px;
+}
+.search-box input {
+  width: 100%;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid var(--glass-border);
+  padding: 12px 12px 12px 40px;
+  border-radius: 8px;
+  color: var(--text-main);
+  font-family: var(--font-body);
+  transition: var(--transition-smooth);
+}
+.search-box input:focus {
+  outline: none;
+  border-color: var(--neon-purple);
+  background: rgba(255,255,255,0.1);
+}
+.search-icon {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-muted);
+  width: 18px; height: 18px;
+}
+.song-list {
+  max-height: 200px;
+  overflow-y: auto;
+  border: 1px solid var(--glass-border);
+  border-radius: 8px;
+  background: rgba(0,0,0,0.2);
+}
+/* Custom Scrollbar for song list */
+.song-list::-webkit-scrollbar { width: 6px; }
+.song-list::-webkit-scrollbar-track { background: transparent; }
+.song-list::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 4px; }
+
+.song-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+  transition: background 0.2s;
+}
+.song-item:hover { background: rgba(255,255,255,0.05); }
+.song-info {
+  display: flex; flex-direction: column;
+}
+.song-title { font-weight: 600; font-size: 0.95rem; }
+.song-artist { font-size: 0.8rem; color: var(--text-muted); }
+.req-btn {
+  background: rgba(188, 19, 254, 0.2);
+  border: 1px solid var(--neon-purple);
+  color: #fff;
+  padding: 6px 12px;
+  border-radius: 100px;
+  font-size: 0.75rem;
+  cursor: pointer;
+  transition: var(--transition-smooth);
+  display: flex; align-items: center; gap: 4px;
+}
+.req-btn:hover { background: var(--neon-purple); box-shadow: 0 0 10px var(--neon-purple); }
+
+/* 4. Merch Showcase (Carousel) */
+.merch-carousel {
+  display: flex;
+  gap: 16px;
+  overflow-x: auto;
+  padding-bottom: 16px;
+  scroll-snap-type: x mandatory;
+}
+.merch-carousel::-webkit-scrollbar { height: 6px; }
+.merch-carousel::-webkit-scrollbar-track { background: transparent; }
+.merch-carousel::-webkit-scrollbar-thumb { background: rgba(0,243,255,0.3); border-radius: 4px; }
+
+.merch-card {
+  min-width: 140px;
+  flex: 0 0 auto;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid var(--glass-border);
+  border-radius: 12px;
+  padding: 8px;
+  scroll-snap-align: start;
+  transition: transform 0.3s;
+}
+.merch-card:hover { transform: translateY(-4px); border-color: rgba(255,255,255,0.2); }
+.merch-img {
+  width: 100%; aspect-ratio: 1;
+  background: #222; border-radius: 8px;
+  margin-bottom: 8px;
+  display: flex; justify-content: center; align-items: center;
+  color: #555;
+}
+.merch-title { font-size: 0.85rem; font-weight: 600; line-height: 1.2; margin-bottom: 4px; }
+.merch-price { font-size: 0.8rem; color: var(--neon-cyan); }
+
+/* 5. Contact Box */
+.form-container {
   display: flex;
   flex-direction: column;
   gap: 12px;
 }
-
-.social-card {
-  display: flex;
-  align-items: center;
-  padding: 16px 20px;
-  background: rgba(255, 255, 255, 0.03);
+.form-container textarea {
+  width: 100%;
+  background: rgba(255,255,255,0.05);
   border: 1px solid var(--glass-border);
-  border-radius: 20px;
-  text-decoration: none;
-  transition: var(--transition-smooth);
-  position: relative;
-  overflow: hidden;
-}
-
-.social-card::before {
-  content: '';
-  position: absolute;
-  top: 0; left: -100%;
-  width: 50%; height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.05), transparent);
-  transform: skewX(-20deg);
-  transition: 0.5s;
-}
-
-.social-card:hover::before {
-  left: 150%;
-}
-
-.social-card:hover {
-  background: rgba(255, 255, 255, 0.08);
-  border-color: rgba(255, 255, 255, 0.2);
-  transform: translateX(6px);
-}
-
-/* Hover Accent Colors */
-.social-card.youtube:hover { border-left: 4px solid #ff0000; }
-.social-card.twitch:hover { border-left: 4px solid #9146ff; }
-.social-card.github:hover { border-left: 4px solid #fff; }
-
-.card-icon {
-  width: 40px;
-  height: 40px;
-  border-radius: 12px;
-  background: rgba(255, 255, 255, 0.1);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-right: 16px;
+  padding: 12px;
+  border-radius: 8px;
   color: var(--text-main);
+  font-family: var(--font-body);
+  resize: vertical;
 }
-
-.card-info {
-  display: flex;
-  flex-direction: column;
-  flex-grow: 1;
+.form-container textarea:focus {
+  outline: none; border-color: var(--neon-cyan);
 }
-
-.platform {
-  font-family: var(--font-heading);
+.submit-btn {
+  align-self: flex-end;
+  background: var(--neon-cyan);
+  color: #000;
+  border: none;
+  padding: 10px 24px;
+  border-radius: 100px;
   font-weight: 700;
-  font-size: 1.05rem;
-  color: var(--text-main);
-}
-
-.desc {
-  font-size: 0.8rem;
-  color: var(--text-muted);
-}
-
-.social-card .arrow {
-  color: var(--text-muted);
-  opacity: 0;
-  transform: translateX(-10px);
-  transition: var(--transition-bounce);
-}
-
-.social-card:hover .arrow {
-  opacity: 1;
-  transform: translateX(0);
-  color: var(--text-main);
-}
-
-/* ==========================================================================
-   Activity Gallery
-   ========================================================================== */
-.activity-gallery {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 16px;
-}
-
-.gallery-item {
-  aspect-ratio: 16 / 9;
-  border-radius: 16px;
-  position: relative;
-  overflow: hidden;
-  border: 1px solid var(--glass-border);
-  background: #111;
   cursor: pointer;
+  display: flex; align-items: center; gap: 8px;
+  transition: 0.3s;
 }
-
-.placeholder-1 {
-  background: linear-gradient(45deg, #1a1a2e, #16213e);
-}
-.placeholder-2 {
-  background: linear-gradient(45deg, #0f0c29, #302b63);
-}
-
-.gallery-overlay {
-  position: absolute;
-  inset: 0;
-  background: rgba(0,0,0,0.5);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  opacity: 0;
-  transition: var(--transition-smooth);
-  backdrop-filter: blur(4px);
-}
-
-.gallery-item:hover .gallery-overlay {
-  opacity: 1;
-}
-
-.gallery-overlay span {
-  font-family: var(--font-heading);
-  font-weight: 700;
-  font-size: 0.9rem;
-  color: #fff;
-  transform: translateY(10px);
-  transition: var(--transition-bounce);
-}
-
-.gallery-item:hover .gallery-overlay span {
-  transform: translateY(0);
-}
-
-/* ==========================================================================
-   Footer
-   ========================================================================== */
-.app-footer {
-  text-align: center;
-  margin-top: 32px;
-  font-size: 0.8rem;
-  color: rgba(255, 255, 255, 0.3);
+.submit-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0,243,255,0.4);
 }

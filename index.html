@@ -45,48 +45,53 @@
       
       <div class="divider"></div>
 
-      <!-- 以下、ハードコード（ダミー）の圧倒的リッチな拡張リンク群 -->
-      <h3 class="section-title">Official Links</h3>
-      <div class="social-grid">
-        <a href="#" class="social-card youtube">
-          <div class="card-icon"><i data-lucide="youtube"></i></div>
-          <div class="card-info">
-            <span class="platform">YouTube</span>
-            <span class="desc">Tech & Game Streaming</span>
+      <!-- 1. Live Player Section -->
+      <section class="portal-section live-player">
+        <h3 class="section-title"><i data-lucide="radio"></i> LIVE NOW / LATEST</h3>
+        <div class="video-container">
+          <div class="video-placeholder">
+            <i data-lucide="play-circle" class="play-icon"></i>
+            <span>Loading Stream...</span>
           </div>
-          <i data-lucide="external-link" class="arrow"></i>
-        </a>
-        
-        <a href="#" class="social-card twitch">
-          <div class="card-icon"><i data-lucide="twitch"></i></div>
-          <div class="card-info">
-            <span class="platform">Twitch</span>
-            <span class="desc">Live Coding</span>
-          </div>
-          <i data-lucide="external-link" class="arrow"></i>
-        </a>
-
-        <a href="#" class="social-card github">
-          <div class="card-icon"><i data-lucide="github"></i></div>
-          <div class="card-info">
-            <span class="platform">GitHub</span>
-            <span class="desc">Open Source Projects</span>
-          </div>
-          <i data-lucide="external-link" class="arrow"></i>
-        </a>
-      </div>
-
-      <div class="divider"></div>
-
-      <h3 class="section-title">Recent Activities</h3>
-      <div class="activity-gallery">
-        <div class="gallery-item placeholder-1">
-          <div class="gallery-overlay"><span>Latest Video</span></div>
         </div>
-        <div class="gallery-item placeholder-2">
-          <div class="gallery-overlay"><span>Setup Tour</span></div>
+      </section>
+
+      <!-- 2. Interactive Schedule -->
+      <section class="portal-section interactive-schedule">
+        <h3 class="section-title"><i data-lucide="calendar"></i> WEEKLY SCHEDULE</h3>
+        <div class="schedule-grid" id="scheduleGrid">
+          <!-- JSで動的にハイライト生成 -->
         </div>
-      </div>
+      </section>
+
+      <!-- 3. Repertoire & 1-Tap Request -->
+      <section class="portal-section repertoire-request">
+        <h3 class="section-title"><i data-lucide="music"></i> SONG REPERTOIRE</h3>
+        <div class="search-box">
+          <i data-lucide="search" class="search-icon"></i>
+          <input type="text" id="songSearch" placeholder="曲名やアーティストで検索...">
+        </div>
+        <div class="song-list" id="songList">
+          <!-- JSで動的生成 -->
+        </div>
+      </section>
+
+      <!-- 4. Merch & Goods Showcase -->
+      <section class="portal-section merch-showcase">
+        <h3 class="section-title"><i data-lucide="shopping-bag"></i> OFFICIAL GOODS</h3>
+        <div class="merch-carousel" id="merchCarousel">
+          <!-- JSで動的生成 -->
+        </div>
+      </section>
+
+      <!-- 5. Integrated Contact Box -->
+      <section class="portal-section contact-box">
+        <h3 class="section-title"><i data-lucide="mail"></i> お便り・マシュマロ</h3>
+        <div class="form-container">
+          <textarea placeholder="匿名でメッセージやリクエストを送れます" rows="3"></textarea>
+          <button class="submit-btn"><i data-lucide="send"></i> 送信</button>
+        </div>
+      </section>
 
     </div>
     

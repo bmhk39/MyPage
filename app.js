@@ -102,30 +102,24 @@ async function loadProfileData() {
  * 読み込んだデータをHTMLに適用
  */
 function renderProfile(data) {
-  // 名前
+  // 既存のプロフィールレンダリング
   if (data["名前"]) {
     const nameEl = document.getElementById("profile-name");
     nameEl.textContent = data["名前"];
     nameEl.classList.remove("skeleton-text");
     document.title = `${data["名前"]} | Portfolio`;
   }
-
-  // キャッチフレーズ
   if (data["キャッチフレーズ"] || data["キャッチコピー"]) {
     const catchphrase = data["キャッチフレーズ"] || data["キャッチコピー"];
     const catchEl = document.getElementById("profile-catchphrase");
     catchEl.textContent = catchphrase;
     catchEl.classList.remove("skeleton-text", "skeleton-sub");
   }
-
-  // プロフィール文
   if (data["プロフィール文"]) {
     const bioEl = document.getElementById("profile-bio");
     bioEl.textContent = data["プロフィール文"];
     bioEl.classList.remove("skeleton-block");
   }
-
-  // X (Twitter)
   if (data["X"]) {
     const xLink = document.getElementById("link-x");
     xLink.href = data["X"];
@@ -133,9 +127,87 @@ function renderProfile(data) {
   }
 }
 
+// ---------------------------------------------------------
+// Portal Features Initialization
+// ---------------------------------------------------------
+
+function initSchedule() {
+  const days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+  const events = ['Off', '20:00 雑談', '21:00 ゲーム', 'Off', '21:00 歌枠', '18:00 参加型', '21:00 コラボ'];
+  const grid = document.getElementById('scheduleGrid');
+  const todayIndex = new Date().getDay() === 0 ? 6 : new Date().getDay() - 1; // Mon=0, Sun=6
+
+  days.forEach((day, index) => {
+    const el = document.createElement('div');
+    el.className = `schedule-day ${index === todayIndex ? 'active' : ''}`;
+    el.innerHTML = `<span class="day-name">${day}</span><span class="event">${events[index]}</span>`;
+    grid.appendChild(el);
+  });
+}
+
+function initMerch() {
+  const merchData = [
+    { title: "アクリルスタンド", price: "¥1,500" },
+    { title: "オリジナルTシャツ", price: "¥3,500" },
+    { title: "ステッカーセット", price: "¥800" },
+    { title: "ボイスパック", price: "¥1,000" }
+  ];
+  const carousel = document.getElementById('merchCarousel');
+  
+  merchData.forEach(item => {
+    const el = document.createElement('a');
+    el.href = "#";
+    el.className = 'merch-card';
+    el.innerHTML = `
+      <div class="merch-img"><i data-lucide="image"></i></div>
+      <div class="merch-title">${item.title}</div>
+      <div class="merch-price">${item.price}</div>
+    `;
+    carousel.appendChild(el);
+  });
+}
+
+function initSongs() {
+  const songs = [
+    { title: "千本桜", artist: "黒うさP" },
+    { title: "アイドル", artist: "YOASOBI" },
+    { title: "シャルル", artist: "バルーン" },
+    { title: "ドライフラワー", artist: "優里" }
+  ];
+  const list = document.getElementById('songList');
+  
+  songs.forEach(song => {
+    const el = document.createElement('div');
+    el.className = 'song-item';
+    el.innerHTML = `
+      <div class="song-info">
+        <span class="song-title">${song.title}</span>
+        <span class="song-artist">${song.artist}</span>
+      </div>
+      <button class="req-btn" onclick="copyRequest('${song.title}')">
+        <i data-lucide="copy"></i> リクエスト
+      </button>
+    `;
+    list.appendChild(el);
+  });
+}
+
+// 1-Tap Copy to Clipboard
+window.copyRequest = function(songTitle) {
+  const text = `${songTitle} をリクエストします！ #ToraLive`;
+  navigator.clipboard.writeText(text).then(() => {
+    alert(`コピーしました！YouTubeのコメント欄に貼り付けてください。\n\n「${text}」`);
+  });
+};
+
 document.addEventListener("DOMContentLoaded", () => {
   if (window.lucide) {
     lucide.createIcons();
   }
   loadProfileData();
+  
+  // Initialize practical features
+  initSchedule();
+  initMerch();
+  initSongs();
 });
