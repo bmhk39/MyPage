@@ -69,8 +69,10 @@ function parseCsvRows(text) {
  * スプレッドシートからデータをフェッチして画面に描画
  */
 async function loadProfileData() {
-  const csvUrl = normalizeCsvUrl(PROFILE_SPREADSHEET_URL);
+  let csvUrl = normalizeCsvUrl(PROFILE_SPREADSHEET_URL);
   if (!csvUrl) return;
+  // キャッシュ回避用のパラメータを追加
+  csvUrl += (csvUrl.includes("?") ? "&" : "?") + "t=" + new Date().getTime();
 
   try {
     const response = await fetch(csvUrl);
@@ -82,7 +84,8 @@ async function loadProfileData() {
 
     rows.forEach(row => {
       if (row.length >= 2) {
-        const key = row[0].trim();
+        // 先頭のBOM（\uFEFF）などの不可視文字を確実に除去してキーにする
+        const key = row[0].replace(/^\uFEFF/, '').trim();
         const value = row[1].trim();
         profileData[key] = value;
       }
