@@ -6,15 +6,16 @@
 const PROFILE_SPREADSHEET_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vR65BlNYQQyo3eRms3k9Y0mx4yu8A9uTskhQ34LKYpkHOHLdhCmn2uNX_wGiC4meYEycikSYdnOpciR/pub?output=csv";
 
 /**
- * URLを自動判定し、CSV出力URLに正規化する
+ * URLを自動判定し、CORSエラーを回避できるGoogle Visualization APIのCSV出力URLに正規化する
  */
 function normalizeCsvUrl(url) {
   if (!url) return "";
-  if (url.includes("/pub?") || url.includes("output=csv")) {
-    return url;
-  }
-  // 通常の共有URLの場合: /edit... を /export?format=csv に置換
-  return url.replace(/\/edit(\?.*)?$/, "/export?format=csv");
+  
+  const match = url.match(/\/d\/e\/([a-zA-Z0-9_-]+)/) || url.match(/\/d\/([a-zA-Z0-9_-]+)/);
+  if (!match) return url;
+  
+  const id = match[1];
+  return `https://docs.google.com/spreadsheets/d/${id}/gviz/tq?tqx=out:csv`;
 }
 
 /**
