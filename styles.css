@@ -1,40 +1,413 @@
+/* ==========================================================================
+   Premium Cyberpunk Glassmorphism Design System
+   ========================================================================== */
+:root {
+  --neon-cyan: #00f3ff;
+  --neon-purple: #bc13fe;
+  --neon-pink: #ff007f;
+  
+  --bg-dark: #07090f;
+  --glass-bg: rgba(15, 17, 26, 0.55);
+  --glass-border: rgba(255, 255, 255, 0.08);
+  --glass-highlight: rgba(255, 255, 255, 0.15);
+  
+  --text-main: #f8fafc;
+  --text-muted: #94a3b8;
+  --text-dark: #0f172a;
+  
+  --font-heading: 'Outfit', sans-serif;
+  --font-body: 'Inter', system-ui, sans-serif;
+  
+  --transition-smooth: 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-bounce: 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
 body {
-  font-family: system-ui, -apple-system, sans-serif;
-  max-width: 640px;
+  background-color: var(--bg-dark);
+  color: var(--text-main);
+  font-family: var(--font-body);
+  line-height: 1.6;
+  min-height: 100vh;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ==========================================================================
+   Background Layers (Fixed)
+   ========================================================================== */
+.bg-layer {
+  position: fixed;
+  inset: -10%; /* Blur bleeding margin */
+  background-image: url('assets/background.png');
+  background-size: cover;
+  background-position: center;
+  filter: blur(8px) brightness(0.6);
+  z-index: -2;
+  animation: bgPulse 20s infinite alternate linear;
+}
+
+.bg-overlay {
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(circle at 50% 0%, rgba(188, 19, 254, 0.15) 0%, transparent 50%),
+              radial-gradient(circle at 80% 80%, rgba(0, 243, 255, 0.1) 0%, transparent 40%);
+  z-index: -1;
+  pointer-events: none;
+}
+
+@keyframes bgPulse {
+  0% { transform: scale(1); }
+  100% { transform: scale(1.05); }
+}
+
+/* ==========================================================================
+   Main Wrapper & Glass Card
+   ========================================================================== */
+.app-wrapper {
+  max-width: 540px;
   margin: 40px auto;
   padding: 0 20px;
-  color: #222;
-  line-height: 1.7;
+  position: relative;
+  z-index: 1;
 }
 
-.catchphrase {
-  font-size: 1.1rem;
-  font-weight: 600;
-  color: #555;
-  margin-top: -8px;
-  margin-bottom: 24px;
+.glass-card {
+  background: var(--glass-bg);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid var(--glass-border);
+  border-radius: 32px;
+  padding: 40px 32px;
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.4),
+              inset 0 1px 1px var(--glass-highlight);
+  position: relative;
+  overflow: hidden;
+  animation: slideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-.bio {
-  white-space: pre-wrap;
-  word-break: break-word;
+/* Subtle inner glow for the card */
+.glass-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 200px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.03) 0%, transparent 100%);
+  pointer-events: none;
+}
+
+@keyframes slideUp {
+  0% { opacity: 0; transform: translateY(40px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+/* ==========================================================================
+   Avatar Section
+   ========================================================================== */
+.avatar-container {
+  position: relative;
+  width: 120px;
+  height: 120px;
+  margin: 0 auto 24px;
+}
+
+.avatar-image {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  position: relative;
+  z-index: 2;
+  border: 2px solid rgba(255, 255, 255, 0.1);
+}
+
+.avatar-glow {
+  position: absolute;
+  inset: -6px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--neon-cyan), var(--neon-purple));
+  filter: blur(12px);
+  opacity: 0.7;
+  animation: rotateGlow 4s linear infinite;
+  z-index: 1;
+}
+
+@keyframes rotateGlow {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* ==========================================================================
+   Profile Texts
+   ========================================================================== */
+.profile-texts {
+  text-align: center;
   margin-bottom: 32px;
 }
 
-.sns-links a {
+#profile-name {
+  font-family: var(--font-heading);
+  font-size: 2rem;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  margin-bottom: 4px;
+  background: linear-gradient(180deg, #fff 0%, #cbd5e1 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+#profile-catchphrase {
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--neon-cyan);
+  margin-bottom: 20px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.bio-text {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  white-space: pre-wrap;
+  text-align: left;
+  background: rgba(0, 0, 0, 0.2);
+  padding: 16px 20px;
+  border-radius: 16px;
+  border: 1px solid rgba(255,255,255,0.03);
+}
+
+/* Skeleton Loading States */
+.skeleton-text {
+  color: transparent !important;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+  animation: pulse 1.5s infinite;
   display: inline-block;
-  padding: 8px 16px;
-  background: #f0f0f0;
-  color: #333;
+  min-width: 150px;
+}
+.skeleton-sub { min-width: 250px; }
+.skeleton-block {
+  color: transparent !important;
+  background: rgba(255, 255, 255, 0.05);
+  min-height: 80px;
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0% { opacity: 0.6; }
+  50% { opacity: 0.3; }
+  100% { opacity: 0.6; }
+}
+
+/* ==========================================================================
+   Buttons & Links
+   ========================================================================== */
+.neon-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  width: 100%;
+  padding: 16px;
+  border-radius: 100px;
+  background: var(--text-main);
+  color: var(--text-dark);
   text-decoration: none;
-  border-radius: 6px;
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 1.1rem;
+  transition: var(--transition-bounce);
+  margin-bottom: 32px;
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+}
+
+.neon-btn i {
+  width: 20px;
+  height: 20px;
+}
+
+.neon-btn:hover {
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: 0 10px 30px rgba(255, 255, 255, 0.4);
+}
+
+.hidden { display: none !important; }
+
+/* Divider */
+.divider {
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--glass-border), transparent);
+  margin: 32px 0;
+}
+
+/* ==========================================================================
+   Hardcoded Social Grid
+   ========================================================================== */
+.section-title {
+  font-family: var(--font-heading);
   font-size: 0.9rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 16px;
+  text-align: left;
 }
 
-.sns-links a:hover {
-  background: #e0e0e0;
+.social-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 }
 
-.hidden {
-  display: none !important;
+.social-card {
+  display: flex;
+  align-items: center;
+  padding: 16px 20px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--glass-border);
+  border-radius: 20px;
+  text-decoration: none;
+  transition: var(--transition-smooth);
+  position: relative;
+  overflow: hidden;
+}
+
+.social-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: -100%;
+  width: 50%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.05), transparent);
+  transform: skewX(-20deg);
+  transition: 0.5s;
+}
+
+.social-card:hover::before {
+  left: 150%;
+}
+
+.social-card:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.2);
+  transform: translateX(6px);
+}
+
+/* Hover Accent Colors */
+.social-card.youtube:hover { border-left: 4px solid #ff0000; }
+.social-card.twitch:hover { border-left: 4px solid #9146ff; }
+.social-card.github:hover { border-left: 4px solid #fff; }
+
+.card-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 16px;
+  color: var(--text-main);
+}
+
+.card-info {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.platform {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 1.05rem;
+  color: var(--text-main);
+}
+
+.desc {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.social-card .arrow {
+  color: var(--text-muted);
+  opacity: 0;
+  transform: translateX(-10px);
+  transition: var(--transition-bounce);
+}
+
+.social-card:hover .arrow {
+  opacity: 1;
+  transform: translateX(0);
+  color: var(--text-main);
+}
+
+/* ==========================================================================
+   Activity Gallery
+   ========================================================================== */
+.activity-gallery {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.gallery-item {
+  aspect-ratio: 16 / 9;
+  border-radius: 16px;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--glass-border);
+  background: #111;
+  cursor: pointer;
+}
+
+.placeholder-1 {
+  background: linear-gradient(45deg, #1a1a2e, #16213e);
+}
+.placeholder-2 {
+  background: linear-gradient(45deg, #0f0c29, #302b63);
+}
+
+.gallery-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  transition: var(--transition-smooth);
+  backdrop-filter: blur(4px);
+}
+
+.gallery-item:hover .gallery-overlay {
+  opacity: 1;
+}
+
+.gallery-overlay span {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 0.9rem;
+  color: #fff;
+  transform: translateY(10px);
+  transition: var(--transition-bounce);
+}
+
+.gallery-item:hover .gallery-overlay span {
+  transform: translateY(0);
+}
+
+/* ==========================================================================
+   Footer
+   ========================================================================== */
+.app-footer {
+  text-align: center;
+  margin-top: 32px;
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.3);
 }

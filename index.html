@@ -2,18 +2,97 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MyPage</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Loading... | Tora's Portfolio</title>
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@500;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <main id="app">
-    <h1 id="profile-name">Loading...</h1>
-    <p id="profile-catchphrase" class="catchphrase"></p>
-    <div id="profile-bio" class="bio"></div>
-    <div id="profile-sns" class="sns-links">
-      <a id="link-x" href="#" target="_blank" rel="noopener noreferrer" class="hidden">X (Twitter)</a>
+  <!-- 動的背景 -->
+  <div class="bg-layer"></div>
+  <div class="bg-overlay"></div>
+
+  <main class="app-wrapper">
+    <!-- メインカード（グラスモフィズム） -->
+    <div class="glass-card main-profile">
+      
+      <!-- アバターセクション -->
+      <div class="avatar-container">
+        <div class="avatar-glow"></div>
+        <img src="assets/avatar.png" alt="Avatar" class="avatar-image">
+      </div>
+
+      <!-- スプレッドシート連動テキスト -->
+      <div class="profile-texts">
+        <h1 id="profile-name" class="skeleton-text">Name</h1>
+        <h2 id="profile-catchphrase" class="skeleton-text skeleton-sub">Catchphrase</h2>
+        <div id="profile-bio" class="bio-text skeleton-block">Bio loading...</div>
+      </div>
+
+      <!-- スプレッドシート連動：メインアクションボタン -->
+      <a id="link-x" href="#" target="_blank" rel="noopener noreferrer" class="neon-btn hidden">
+        <i data-lucide="twitter"></i>
+        <span>Follow on X</span>
+      </a>
+      
+      <div class="divider"></div>
+
+      <!-- 以下、ハードコード（ダミー）の圧倒的リッチな拡張リンク群 -->
+      <h3 class="section-title">Official Links</h3>
+      <div class="social-grid">
+        <a href="#" class="social-card youtube">
+          <div class="card-icon"><i data-lucide="youtube"></i></div>
+          <div class="card-info">
+            <span class="platform">YouTube</span>
+            <span class="desc">Tech & Game Streaming</span>
+          </div>
+          <i data-lucide="external-link" class="arrow"></i>
+        </a>
+        
+        <a href="#" class="social-card twitch">
+          <div class="card-icon"><i data-lucide="twitch"></i></div>
+          <div class="card-info">
+            <span class="platform">Twitch</span>
+            <span class="desc">Live Coding</span>
+          </div>
+          <i data-lucide="external-link" class="arrow"></i>
+        </a>
+
+        <a href="#" class="social-card github">
+          <div class="card-icon"><i data-lucide="github"></i></div>
+          <div class="card-info">
+            <span class="platform">GitHub</span>
+            <span class="desc">Open Source Projects</span>
+          </div>
+          <i data-lucide="external-link" class="arrow"></i>
+        </a>
+      </div>
+
+      <div class="divider"></div>
+
+      <h3 class="section-title">Recent Activities</h3>
+      <div class="activity-gallery">
+        <div class="gallery-item placeholder-1">
+          <div class="gallery-overlay"><span>Latest Video</span></div>
+        </div>
+        <div class="gallery-item placeholder-2">
+          <div class="gallery-overlay"><span>Setup Tour</span></div>
+        </div>
+      </div>
+
     </div>
+    
+    <footer class="app-footer">
+      <p>&copy; 2026 Tora. Powered by Custom GitHub Pages.</p>
+    </footer>
   </main>
 
   <script src="app.js"></script>

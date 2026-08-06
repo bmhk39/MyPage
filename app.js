@@ -104,18 +104,25 @@ async function loadProfileData() {
 function renderProfile(data) {
   // 名前
   if (data["名前"]) {
-    document.getElementById("profile-name").textContent = data["名前"];
-    document.title = `${data["名前"]} | MyPage`;
+    const nameEl = document.getElementById("profile-name");
+    nameEl.textContent = data["名前"];
+    nameEl.classList.remove("skeleton-text");
+    document.title = `${data["名前"]} | Portfolio`;
   }
 
   // キャッチフレーズ
-  if (data["キャッチフレーズ"]) {
-    document.getElementById("profile-catchphrase").textContent = data["キャッチフレーズ"];
+  if (data["キャッチフレーズ"] || data["キャッチコピー"]) {
+    const catchphrase = data["キャッチフレーズ"] || data["キャッチコピー"];
+    const catchEl = document.getElementById("profile-catchphrase");
+    catchEl.textContent = catchphrase;
+    catchEl.classList.remove("skeleton-text", "skeleton-sub");
   }
 
   // プロフィール文
   if (data["プロフィール文"]) {
-    document.getElementById("profile-bio").textContent = data["プロフィール文"];
+    const bioEl = document.getElementById("profile-bio");
+    bioEl.textContent = data["プロフィール文"];
+    bioEl.classList.remove("skeleton-block");
   }
 
   // X (Twitter)
@@ -126,4 +133,9 @@ function renderProfile(data) {
   }
 }
 
-document.addEventListener("DOMContentLoaded", loadProfileData);
+document.addEventListener("DOMContentLoaded", () => {
+  if (window.lucide) {
+    lucide.createIcons();
+  }
+  loadProfileData();
+});
