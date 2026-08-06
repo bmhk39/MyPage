@@ -1,8 +1,40 @@
 body {
-  font-family: sans-serif;
-  max-width: 600px;
+  font-family: system-ui, -apple-system, sans-serif;
+  max-width: 640px;
   margin: 40px auto;
-  padding: 0 16px;
+  padding: 0 20px;
+  color: #222;
+  line-height: 1.7;
+}
+
+.catchphrase {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #555;
+  margin-top: -8px;
+  margin-bottom: 24px;
+}
+
+.bio {
+  white-space: pre-wrap;
+  word-break: break-word;
+  margin-bottom: 32px;
+}
+
+.sns-links a {
+  display: inline-block;
+  padding: 8px 16px;
+  background: #f0f0f0;
   color: #333;
-  line-height: 1.6;
+  text-decoration: none;
+  border-radius: 6px;
+  font-size: 0.9rem;
+}
+
+.sns-links a:hover {
+  background: #e0e0e0;
+}
+
+.hidden {
+  display: none !important;
 }
